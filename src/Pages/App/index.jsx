@@ -27,7 +27,7 @@ const AppRoutes = () => {
 
 const App = () => {
   return (
-    // esto nos va a ayudar a decir tenemos estas rutas y quiero que me las muestres 
+    // esto nos va a ayudar a decir tenemos estas rutas y quiero que me las muestres por medio de la funcion AppRoutes
     <BrowserRouter>
       <AppRoutes />
     </BrowserRouter>
