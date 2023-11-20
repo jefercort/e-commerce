@@ -1,35 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+// Vamos a importar un hook que se llama useRoutes
+import { useRoutes, BrowserRouter } from 'react-router-dom'
+import Home from '../Home'
+import MyAccount from '../MyAccount'
+import MyOrder from '../MyOrder'
+import MyOrders from '../MyOrders'
+import NotFound from '../NotFound'
+import SignIn from '../SignIn'
 import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+// Para que pueda funcionar muy bien lo que se puede hacer es retornar las rutas
+// lo que se hace es seprar un poco las estructuras de app y primero crear una funcion que
+// tenga todas las rutas y luego tener otra funcion (componente) donde vamos a retornar estos elementos
+// Aca le digo que me retorne las rutas con las cuales se va a redirigir al componente que le indiquemos
+const AppRoutes = () => {
+  let routes = useRoutes([
+    { path: '/', element: <Home /> },
+    { path: '/my-account', element: <MyAccount /> },
+    { path: '/my-order', element: <MyOrder /> },
+    { path: '/my-orders', element: <MyOrders /> },
+    { path: '/sign-in', element: <SignIn /> },
+    { path: '/*', element: <NotFound /> },
+  ]);
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+  return routes;
 }
 
-export default App
+const App = () => {
+  return (
+    // esto nos va a ayudar a decir tenemos estas rutas y quiero que me las muestres 
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
+  );
+}
+
+export default App;
