@@ -6,6 +6,7 @@ import MyOrder from '../MyOrder'
 import MyOrders from '../MyOrders'
 import NotFound from '../NotFound'
 import SignIn from '../SignIn'
+import Navbar from '../../Components/Navbar'
 import './App.css'
 
 // Para que pueda funcionar muy bien lo que se puede hacer es retornar las rutas
@@ -30,6 +31,7 @@ const App = () => {
     // esto nos va a ayudar a decir tenemos estas rutas y quiero que me las muestres por medio de la funcion AppRoutes
     <BrowserRouter>
       <AppRoutes />
+      <Navbar />
     </BrowserRouter>
   );
 }
