@@ -1,5 +1,6 @@
 // Vamos a importar un hook que se llama useRoutes
 import { useRoutes, BrowserRouter } from 'react-router-dom'
+import { ShoppingCartProvider } from '../../Context'
 import Home from '../Home'
 import MyAccount from '../MyAccount'
 import MyOrder from '../MyOrder'
@@ -28,11 +29,13 @@ const AppRoutes = () => {
 
 const App = () => {
   return (
-    // esto nos va a ayudar a decir tenemos estas rutas y quiero que me las muestres por medio de la funcion AppRoutes
-    <BrowserRouter>
-      <AppRoutes />
-      <Navbar />
-    </BrowserRouter>
+    <ShoppingCartProvider>
+      <BrowserRouter>
+      {/* esto nos va a ayudar a decir tenemos estas rutas y quiero que me las muestres por medio de la funcion AppRoutes */}
+        <AppRoutes />
+        <Navbar />
+      </BrowserRouter>
+    </ShoppingCartProvider>
   );
 }
 
