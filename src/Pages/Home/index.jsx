@@ -1,10 +1,11 @@
 // vamos a importar un custome hook que se llama useState para poder consumir la api
 // siempre que vayamos a consumir una api en nuestro codigo no puede faltar useEffect porque nos ayuda a encapsular esa api (respuesta)
 // pero tambien podemos enviarle los valores iniciales por si necesitamos atraparlo en alguna funcion
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Layout from "../../Components/Layout";
 import Card from "../../Components/Card";
-import { useEffect } from "react"
+import ProductDetail from "../../Components/ProductDetail";
+
 function Home() {
     // aca vamos a almacenar lo que viene desde la API .. items es nuestra cajita y setItems es el que va a inyectar el valor de los items
     // cuando usamos useState() dentro de el podemos poner un valor por defecto que podrian ser unas llaves indicando que en futuro puede ser un objeto
@@ -40,6 +41,7 @@ function Home() {
             ))
           }
         </div>
+        <ProductDetail />
       </Layout>
     );
   }
