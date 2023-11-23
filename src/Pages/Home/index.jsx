@@ -8,8 +8,8 @@ import { useEffect } from "react"
 function Home() {
     // aca vamos a almacenar lo que viene desde la API .. items es nuestra cajita y setItems es el que va a inyectar el valor de los items
     // cuando usamos useState() dentro de el podemos poner un valor por defecto que podrian ser unas llaves indicando que en futuro puede ser un objeto
-    // o puede ser un array vacio o un boolean o lo que sea
-    const [items, setItems] = useState(null)
+    // o puede ser un array vacio o un boolean o lo que sea (ESTO ES UN ESTADO LOCAL)
+    const [items, setItems] = useState(null);
 
     useEffect(() => {
       // para ir a la API y consurmirla usamos el comando fetch y esa informacion viene en tipo promesa, entonces lo que hacemos para resolver la promesa es usar .then y
