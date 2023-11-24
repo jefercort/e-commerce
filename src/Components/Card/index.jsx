@@ -2,6 +2,7 @@
 import { useContext } from "react"
 import { PlusIcon } from '@heroicons/react/24/solid'
 import { ShoppingCartContext } from "../../Context";
+import CheckoutSideMenu from "../CheckoutSideMenu";
 
 // entre parentesis ponemos (data) para indicarle a la card que va a llegar algo y en los datos que cambian indicarle a cada uno que debe cambiar con respecto al tipo de dato que recibe
 const Card = (data) => {
@@ -15,12 +16,19 @@ const Card = (data) => {
     }
 
     // el evento generado por PlusIcon dispara esta funcion para poder ejecutar lo que queremos que haga
-    const addProductsToCart = (productData) => {
+    const addProductsToCart = (event, productData) => {
+        // este lo usamos para que no se crucen los eventos al hacer el evento de onclick
+        event.stopPropagation();
         // cuando el escuche el evento del usuario en este caso onClick va a suceder algo, ese algo es que va a incrementar el contador debemos hacerlo en forma de funcion
         context.setCount(context.count + 1);
         /* aca escuchamos el evento para poder agregar cosas al carrito y cuando lo haga le va a enviar los datos con data.data*/
         // aca garantizamos que se almacene los datos y que no los remplace que vayan aumentando los datos
         context.setCartProducts([...context.cartProducts, productData]);
+        // este contexto es para que cuando se clickee se abra el sidebar de los productos agregados al carrito
+        context.openCheckoutSideMenu();
+        // este context lo usamos para que cuando se abra el CheckoutSideMenu se cierre el otro si esta abierto
+        context.closeProductDetail();
+
 
         // con este comando podemos ver desde la consola que datos nos estan llegando 
         console.log("CART: ", context.cartProducts);
@@ -39,7 +47,8 @@ const Card = (data) => {
                 <img className="w-full h-full object-cover rounded-lg" src={data.data.images[0]} alt={data.data.description} />
                 <div 
                     className="absolute top-0 right-0 flex justify-center items-center bg-white h-6 w-6 rounded-full m-2 p-1"
-                    onClick={() => addProductsToCart(data.data)}>
+                    // para que no se crucen los eventos de clicks entonces los diferenciamos con event (puede llamarse como lo queramos)
+                    onClick={(event) => addProductsToCart(event, data.data)}>
                     <PlusIcon className="h-6 w-6 text-black" />
                 </div>
             </figure>

@@ -26,6 +26,13 @@ export const ShoppingCartProvider = ({children}) => {
     // este estado lo vamos a usar para poder agregar cosas al carrito cuando se haga click en el + de cada card, el valor default es un array de objetos vacio []
     const [cartProducts, setCartProducts] = useState([]);
 
+    // PARA VISUALIZAR O NO VISUALIZAR EL SIDE MENU DEBEMOS CREAR LOS SIGUENTES ESTADOS (ESTE ES PARA EL SIDEMENU DE LOS PRODUCTOS AGREGADOS)
+    const [isCheckoutSideMenuOpen, setIsCheckoutSideMenuOpen] = useState(false);
+    // esta funcion se va a encargar de cambiar los estados segun lo que escuche
+    const openCheckoutSideMenu = () => setIsCheckoutSideMenuOpen(true);
+    const closeCheckoutSideMenu = () => setIsCheckoutSideMenuOpen(false);
+
+
     return (
         // aca se hace el encapsulamiento o wrapper que va a encapsular todos los componentes de app para proveeerlos de información
         // con el value le estoy diciendo yo voy a tener un hijo y este hijo necesita que pueda leer los datos que le pongamos ex: count setCount pero cualquier componente 
@@ -39,7 +46,10 @@ export const ShoppingCartProvider = ({children}) => {
             productToShow,
             setProductToShow,
             cartProducts,
-            setCartProducts
+            setCartProducts,
+            isCheckoutSideMenuOpen,
+            openCheckoutSideMenu,
+            closeCheckoutSideMenu
         }}>
             {children}
         </ShoppingCartContext.Provider>

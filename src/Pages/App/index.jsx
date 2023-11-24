@@ -8,6 +8,7 @@ import MyOrders from '../MyOrders'
 import NotFound from '../NotFound'
 import SignIn from '../SignIn'
 import Navbar from '../../Components/Navbar'
+import CheckoutSideMenu from '../../Components/CheckoutSideMenu'
 import './App.css'
 
 // Para que pueda funcionar muy bien lo que se puede hacer es retornar las rutas
@@ -32,8 +33,10 @@ const App = () => {
     <ShoppingCartProvider>
       <BrowserRouter>
       {/* esto nos va a ayudar a decir tenemos estas rutas y quiero que me las muestres por medio de la funcion AppRoutes */}
+      {/* este componente no lo pusimos en home porque necesitamos que este en varias partes de la aplicacion la idea es que viva en toda la app */}
         <AppRoutes />
         <Navbar />
+        <CheckoutSideMenu />
       </BrowserRouter>
     </ShoppingCartProvider>
   );
