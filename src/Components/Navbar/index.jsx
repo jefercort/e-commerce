@@ -105,6 +105,9 @@ const Navbar = () => {
                     </NavLink>
                 </li>
                 <li className="flex items-center">
+                    {/* en la pagina de HEROICONS aparece el nombre para vincular el icono en este caso aparece como shopping-cart
+                    pero cuando nosotros lo vayamos a usar en react lo que hacemos es escribirlo así ShoppingCartIcon en donde lo 
+                    debemos importar en la cabecera y luego agregarlo como un componente al codigo */}
                     <ShoppingCartIcon className="h-6 w-6 text-black" />
                     <div>{context.count}</div>
                 </li>
