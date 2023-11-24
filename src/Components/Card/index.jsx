@@ -8,11 +8,17 @@ const Card = (data) => {
     // ya con esto podemos usar este hook con este context, aca lo que le estamos diciendo es que lea el estado global 
     const context = useContext(ShoppingCartContext);
 
+    // nos creamos esta funcion con el objetivo de que escuche y guarde el evento onclick de la card
+    const showProduct = (productDetail) => {
+        context.openProductDetail();
+        context.setProductToShow(productDetail);
+    }
+
     return (
         <div 
             className="bg-white cursor-pointer w-56 h-60 rounde-lg"
-            // aca hicimos una funcion para que cuando escuche el evento lo actualice de manera global
-            onClick={() => context.openProductDetail()}>
+            // aca hicimos una funcion para que cuando escuche el evento lo actualice de manera global pero tambien que reciba los datos de la card enviado para mostrarlos en el detail
+            onClick={() => showProduct(data.data)}>
             {/* necesitamos que figura tenga elementos absolutos y usamos la propiedad relative & absolute  */}
             <figure className="relative mb-2 w-full h-4/5">
                 <span className="absolute bottom-0 left-0 bg-white/60 rounded-lg text-black text-xs m-2 px-3 py-0.5">{data.data.category.name}</span>

@@ -7,16 +7,21 @@ export const ShoppingCartContext = createContext();
 // aca va a funcionar de manera parecida al Layout donde va a recibir unos hijos {children}
 export const ShoppingCartProvider = ({children}) => {
     // aca creamos un estado que va a ser el contador y a partir de ahi el le va a pasar la informacion a los diferentes componentes que tengan que ver con el
+    // ESTE ESTADO LO UTULIZAMOS PARA EL CONTADOR CUANDO AGREGAMOS PRODUCTOS AL CARRO
     const [count, setCount] = useState(0);
     // vamos a usar este console.log para poder ver si en la consola esta leyendo lo que estamos necesitando
     // console.log("COUNT: ", count);
 
-    // PARA VISUALIZAR O NO VISUALIZAR EL SIDE MENU DEBEMOS CREAR UN ESTADO QUE ES EL SIGUENTE
+    // PARA VISUALIZAR O NO VISUALIZAR EL SIDE MENU DEBEMOS CREAR LOS SIGUENTES ESTADOS
     const [isProductDetailOpen, setIsProductDetailOpen] = useState(false);
     // esta funcion se va a encargar de cambiar los estados segun lo que escuche
     const openProductDetail = () => setIsProductDetailOpen(true);
     const closeProductDetail = () => setIsProductDetailOpen(false);
 
+
+    // este estado lo vamos a usar para mostrar el producto dentro del side bar, le pusimos como valor default llaves que representan un objeto vacio {} porque 
+    // sabemos que el componente card es un objeto con arrays
+    const [productToShow, setProductToShow] = useState({});
     
     return (
         // aca se hace el encapsulamiento o wrapper que va a encapsular todos los componentes de app para proveeerlos de información
@@ -27,7 +32,9 @@ export const ShoppingCartProvider = ({children}) => {
             setCount,
             openProductDetail,
             closeProductDetail,
-            isProductDetailOpen
+            isProductDetailOpen,
+            productToShow,
+            setProductToShow
         }}>
             {children}
         </ShoppingCartContext.Provider>
