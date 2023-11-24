@@ -1,5 +1,6 @@
 // aca nos traemos el contexto y el useContext para poder tener cada estado
 import { useContext } from "react"
+import { PlusIcon } from '@heroicons/react/24/solid'
 import { ShoppingCartContext } from "../../Context";
 
 // entre parentesis ponemos (data) para indicarle a la card que va a llegar algo y en los datos que cambian indicarle a cada uno que debe cambiar con respecto al tipo de dato que recibe
@@ -19,7 +20,7 @@ const Card = (data) => {
                     className="absolute top-0 right-0 flex justify-center items-center bg-white h-6 w-6 rounded-full m-2 p-1"
                     // cuando el escuche el evento del usuario en este caso onClick va a suceder algo, ese algo es que va a incrementar el contador debemos hacerlo en forma de funcion
                     onClick={() => context.setCount(context.count + 1)}>
-                    +
+                    <PlusIcon className="h-6 w-6 text-black"/>
                 </div>
             </figure>
             <p className="flex justify-between">
