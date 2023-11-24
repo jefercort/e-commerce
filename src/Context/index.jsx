@@ -22,7 +22,10 @@ export const ShoppingCartProvider = ({children}) => {
     // este estado lo vamos a usar para mostrar el producto dentro del side bar, le pusimos como valor default llaves que representan un objeto vacio {} porque 
     // sabemos que el componente card es un objeto con arrays
     const [productToShow, setProductToShow] = useState({});
-    
+
+    // este estado lo vamos a usar para poder agregar cosas al carrito cuando se haga click en el + de cada card, el valor default es un array de objetos vacio []
+    const [cartProducts, setCartProducts] = useState([]);
+
     return (
         // aca se hace el encapsulamiento o wrapper que va a encapsular todos los componentes de app para proveeerlos de información
         // con el value le estoy diciendo yo voy a tener un hijo y este hijo necesita que pueda leer los datos que le pongamos ex: count setCount pero cualquier componente 
@@ -34,7 +37,9 @@ export const ShoppingCartProvider = ({children}) => {
             closeProductDetail,
             isProductDetailOpen,
             productToShow,
-            setProductToShow
+            setProductToShow,
+            cartProducts,
+            setCartProducts
         }}>
             {children}
         </ShoppingCartContext.Provider>

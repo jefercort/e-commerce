@@ -14,6 +14,18 @@ const Card = (data) => {
         context.setProductToShow(productDetail);
     }
 
+    // el evento generado por PlusIcon dispara esta funcion para poder ejecutar lo que queremos que haga
+    const addProductsToCart = (productData) => {
+        // cuando el escuche el evento del usuario en este caso onClick va a suceder algo, ese algo es que va a incrementar el contador debemos hacerlo en forma de funcion
+        context.setCount(context.count + 1);
+        /* aca escuchamos el evento para poder agregar cosas al carrito y cuando lo haga le va a enviar los datos con data.data*/
+        // aca garantizamos que se almacene los datos y que no los remplace que vayan aumentando los datos
+        context.setCartProducts([...context.cartProducts, productData]);
+
+        // con este comando podemos ver desde la consola que datos nos estan llegando 
+        console.log("CART: ", context.cartProducts);
+    }
+
     return (
         <div 
             className="bg-white cursor-pointer w-56 h-60 rounde-lg"
@@ -27,9 +39,8 @@ const Card = (data) => {
                 <img className="w-full h-full object-cover rounded-lg" src={data.data.images[0]} alt={data.data.description} />
                 <div 
                     className="absolute top-0 right-0 flex justify-center items-center bg-white h-6 w-6 rounded-full m-2 p-1"
-                    // cuando el escuche el evento del usuario en este caso onClick va a suceder algo, ese algo es que va a incrementar el contador debemos hacerlo en forma de funcion
-                    onClick={() => context.setCount(context.count + 1)}>
-                    <PlusIcon className="h-6 w-6 text-black"/>
+                    onClick={() => addProductsToCart(data.data)}>
+                    <PlusIcon className="h-6 w-6 text-black" />
                 </div>
             </figure>
             <p className="flex justify-between">
