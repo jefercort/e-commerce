@@ -31,7 +31,7 @@ const Card = (data) => {
 
 
         // con este comando podemos ver desde la consola que datos nos estan llegando 
-        console.log("CART: ", context.cartProducts);
+        // console.log("CART: ", context.cartProducts);
     }
 
     return (
