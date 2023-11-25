@@ -1,8 +1,8 @@
 // aca nos traemos el contexto y el useContext para poder tener cada estado
 import { useContext } from "react"
-import { PlusIcon } from '@heroicons/react/24/solid'
+import { PlusIcon, CheckIcon } from '@heroicons/react/24/solid'
 import { ShoppingCartContext } from "../../Context";
-import CheckoutSideMenu from "../CheckoutSideMenu";
+
 
 // entre parentesis ponemos (data) para indicarle a la card que va a llegar algo y en los datos que cambian indicarle a cada uno que debe cambiar con respecto al tipo de dato que recibe
 const Card = (data) => {
@@ -34,6 +34,31 @@ const Card = (data) => {
         // console.log("CART: ", context.cartProducts);
     }
 
+    // nos creamos esta funcion para que cuando se clickee en el producto solo se pueda hacer una vez 
+    const renderIcon = (id) => {
+        // aca en esta funcion vamos a retornar algo sin esto que vamos a checkear, aca le decimos a la función que si el id del producto
+        // ya está en el carrito entonces es true si no es false
+        const isInCart = context.cartProducts.filter(product => product.id === id).length > 0
+        // aca agregamos este condicional para que renderise segun si es true o false
+        if (isInCart) {
+            return (
+                <div 
+                    className="absolute top-0 right-0 flex justify-center items-center bg-black h-6 w-6 rounded-full m-2 p-1">
+                    <CheckIcon className="h-6 w-6 text-white"></CheckIcon>
+                </div>
+            )
+        } else {
+            return (
+                <div 
+                    className="absolute top-0 right-0 flex justify-center items-center bg-white h-6 w-6 rounded-full m-2 p-1"
+                    // para que no se crucen los eventos de clicks entonces los diferenciamos con event (puede llamarse como lo queramos)
+                    onClick={(event) => addProductsToCart(event, data.data)}>
+                    <PlusIcon className="h-6 w-6 text-black"></PlusIcon>
+                </div>
+            )
+        }
+    }
+    
     return (
         <div 
             className="bg-white cursor-pointer w-56 h-60 rounde-lg"
@@ -45,12 +70,8 @@ const Card = (data) => {
                 {/* Para encontrar imagenes gratis entramos a la pagina pexels.com 
                 le pusimos las propiedades   para que la foto ocupe todo el ancho y todo el alto de figure pero que tambien no se deforme con esas directivas*/}
                 <img className="w-full h-full object-cover rounded-lg" src={data.data.images[0]} alt={data.data.description} />
-                <div 
-                    className="absolute top-0 right-0 flex justify-center items-center bg-white h-6 w-6 rounded-full m-2 p-1"
-                    // para que no se crucen los eventos de clicks entonces los diferenciamos con event (puede llamarse como lo queramos)
-                    onClick={(event) => addProductsToCart(event, data.data)}>
-                    <PlusIcon className="h-6 w-6 text-black" />
-                </div>
+                {/* este renderIcon va a depender de una variable */}
+                {renderIcon(data.data.id)}
             </figure>
             <p className="flex justify-between">
                 <span className="text-sm font-light">{data.data.title}</span>

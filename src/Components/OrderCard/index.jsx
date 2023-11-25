@@ -1,5 +1,6 @@
 import { XMarkIcon } from '@heroicons/react/24/solid'
 
+
 // sabemos que el debe recibir una informacion la informacion de productData
 const OrderCart = props => {
     // esta constante va a ser todo lo que necesitemos para llamar ciertas cositas de props para poderlas usar en casos especificos
