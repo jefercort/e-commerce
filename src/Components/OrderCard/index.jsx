@@ -4,7 +4,7 @@ import { XMarkIcon } from '@heroicons/react/24/solid'
 // sabemos que el debe recibir una informacion la informacion de productData
 const OrderCart = props => {
     // esta constante va a ser todo lo que necesitemos para llamar ciertas cositas de props para poderlas usar en casos especificos
-    const { title, imageUrl, price } = props
+    const { id, title, imageUrl, price, handleDelete } = props
 
     return (
         <div className="flex justify-between items-center mb-3">
@@ -16,7 +16,10 @@ const OrderCart = props => {
             </div>
             <div className="flex items-center gap-2">
                 <p className="text-lg font-medium">{price}</p>
-                <XMarkIcon className="h-6 w-6 text-black cursor-pointer" />
+                <XMarkIcon 
+                    className="h-6 w-6 text-black cursor-pointer" 
+                    onClick={() => handleDelete(id)}
+                />
             </div>
         </div>
     );

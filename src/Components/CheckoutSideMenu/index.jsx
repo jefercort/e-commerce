@@ -6,6 +6,15 @@ import "./styles.css"
 
 const CheckoutSideMenu = () => {
     const context = useContext(ShoppingCartContext);
+    // creamo la funcion handleDelete y ahi lo que le decimos es que necesito identificar el elemento que presione y de ahi necesito que lo remueva
+    // para ello creamos una constante que con la propiedad fiter le decimos que tome un producto y si el id del producto que estas iterando
+    // entonces le decimos que retorne la misma lista de productos pero sin id que acabamos de presionar != id 
+
+    const handleDelete = (id) => {
+        const filteredProducts = context.cartProducts.filter(product => product.id != id)
+        // para modificarlo vamos a nuestro contexto y le decirmos setCartProducts y le mandamos los elementos que estan filtrados
+        context.setCartProducts(filteredProducts)
+    }
 
     // // con este comando podemos ver desde la consola que datos nos estan llegando 
     // console.log("CART: ", context.cartProducts);
@@ -30,9 +39,12 @@ const CheckoutSideMenu = () => {
                         <OrderCart 
                             // REACT  nos va a pedir que le pongamos a cada uno una Key
                             key={product.id}
+                            id={product.id}
                             title={product.title}
                             imageUrl={product.images}
                             price={product.price}
+                            // se lo enviamos como una prop porque tiene que tenerla OrderCart y ahi le enviamos esa funcion
+                            handleDelete={handleDelete}
                         />
                     ))
                 }
