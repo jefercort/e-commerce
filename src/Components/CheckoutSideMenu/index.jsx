@@ -1,7 +1,8 @@
 import { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { XMarkIcon } from '@heroicons/react/24/solid'
 import { ShoppingCartContext } from '../../Context';
-import OrderCart from '../../Components/OrderCard';
+import OrderCard from '../../Components/OrderCard';
 import { totalPrice } from '../../Utils';
 import "./styles.css"
 
@@ -24,7 +25,7 @@ const CheckoutSideMenu = () => {
     const handleCheckout = () => {
         const orderToAdd = {
             date: {fecha},
-            product: context.cartProducts,
+            products: context.cartProducts,
             totalProducts: context.cartProducts.length,
             totalPrice: totalPrice(context.cartProducts) 
 
@@ -58,7 +59,7 @@ const CheckoutSideMenu = () => {
                 {   
                     // aca hacemos un return "chevere" porque solo utilizamos los parentesis () morados en esta parte del code
                     context.cartProducts.map(product => (
-                        <OrderCart 
+                        <OrderCard 
                             // REACT  nos va a pedir que le pongamos a cada uno una Key
                             key={product.id}
                             id={product.id}
@@ -77,10 +78,12 @@ const CheckoutSideMenu = () => {
                     <span className="font-medium text-2xl">${totalPrice(context.cartProducts)}</span>
                 </p>
                 {/* aca le decimos al boton que escuche cuando el usuario haga click y que se ejecute la funcion handleCheckout */}
-                <button
-                    className="w-full py-3 text-white bg-black rounded-lg"
-                    onClick={() => handleCheckout()}
-                >Checkout</button>
+                <Link to="/my-orders/last">
+                    <button
+                        className="w-full py-3 text-white bg-black rounded-lg"
+                        onClick={() => handleCheckout()}
+                    >Checkout</button>                
+                </Link>
             </div>
         </aside>
     );
