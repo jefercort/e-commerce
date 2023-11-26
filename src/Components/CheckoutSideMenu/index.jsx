@@ -17,6 +17,26 @@ const CheckoutSideMenu = () => {
         context.setCartProducts(filteredProducts)
     }
 
+    const fechaActual = Date.now();
+    const fecha = new Date(fechaActual);
+
+    // esta funcion lo que hace es crear la orden de pedido que va a ser un set de productos en el carrito
+    const handleCheckout = () => {
+        const orderToAdd = {
+            date: {fecha},
+            product: context.cartProducts,
+            totalProducts: context.cartProducts.length,
+            totalPrice: totalPrice(context.cartProducts) 
+
+        }
+
+        // en esta parte le decimos toma todo lo que tienes en la order mas la orderToAdd
+        context.setOrder([...context.order, orderToAdd])
+
+        // adicionalmente cuando se haga el checkout se debe limpiar esa orden 
+        context.setCartProducts([])
+    } 
+
     // // con este comando podemos ver desde la consola que datos nos estan llegando 
     // console.log("CART: ", context.cartProducts);
 
@@ -30,8 +50,9 @@ const CheckoutSideMenu = () => {
                         onClick={() => context.closeCheckoutSideMenu()} />
                 </div>
             </div>
-            {/* vamos a agegarle el scroll a este side menu y para ello usamos overflow-y-scroll */}
-            <div className="px-6 overflow-y-scroll">
+            {/* vamos a agegarle el scroll a este side menu y para ello usamos overflow-y-scroll 
+            en la clase de este "body" pusimos flex-1 para que ocupe el espacio que tiene solo para el y mande el boton del checkout a la parte final de ese componente*/}
+            <div className="px-6 overflow-y-scroll flex-1">
                 {/* lo que le estamos pidiendo es que renderice esa parte en nuestra columna de my order, aca usamos el retur con parentesis para que nos renderice */}
                 {/* aqui es donde vamos a poner nuestras cards para que se pinten dependiendo de lo que tenemos agregado en el carrito*/}
                 {   
@@ -50,11 +71,16 @@ const CheckoutSideMenu = () => {
                     ))
                 }
             </div>
-            <div className="px-6">
-                <p className="flex justify-between items-center">
+            <div className="px-6 mb-6">
+                <p className="flex justify-between items-center mb-2">
                     <span className="font-light">Total: </span>
                     <span className="font-medium text-2xl">${totalPrice(context.cartProducts)}</span>
                 </p>
+                {/* aca le decimos al boton que escuche cuando el usuario haga click y que se ejecute la funcion handleCheckout */}
+                <button
+                    className="w-full py-3 text-white bg-black rounded-lg"
+                    onClick={() => handleCheckout()}
+                >Checkout</button>
             </div>
         </aside>
     );
