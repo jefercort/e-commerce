@@ -6,7 +6,8 @@ import OrdersCard  from "../../Components/OrdersCard"
 
 function MyOrders() {
   const context = useContext(ShoppingCartContext);
-
+  // este console.log lo estamos utilizando para ver que nos renderiza en order
+  // console.log(context.order)
 
   return (
     <Layout>
@@ -15,16 +16,16 @@ function MyOrders() {
       </div>
       {
         // todas las props que le enviamos a OrderCard llegan aca directamente
-        context.order.map((order, index) => {
+        context.order.map((order, index) => (
           // aca le estamos diciendo que nos lleve a MyOrders y agregado que tenemos que llegar al id de todos esos productos
-          <Link key={index} to={`/my-orders/${order.id}`}>
+          <Link key={index} to={`/my-orders/${index}`}>
             <OrdersCard 
               totalPrice={order.totalPrice}
               totalProducts={order.totalProducts}
             />          
           </Link>
 
-        })
+        ))
       }
     </Layout>
   );

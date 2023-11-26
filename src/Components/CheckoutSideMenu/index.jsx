@@ -18,13 +18,14 @@ const CheckoutSideMenu = () => {
         context.setCartProducts(filteredProducts)
     }
 
-    const fechaActual = Date.now();
-    const fecha = new Date(fechaActual);
+    // const fechaActual = Date.now();
+    // const fecha = new Date(fechaActual);
 
     // esta funcion lo que hace es crear la orden de pedido que va a ser un set de productos en el carrito
     const handleCheckout = () => {
         const orderToAdd = {
-            date: {fecha},
+            date: "02.13.2023",
+            // date: {fecha},
             products: context.cartProducts,
             totalProducts: context.cartProducts.length,
             totalPrice: totalPrice(context.cartProducts) 
