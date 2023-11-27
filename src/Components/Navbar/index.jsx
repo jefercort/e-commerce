@@ -117,7 +117,7 @@ const Navbar = () => {
                     pero cuando nosotros lo vayamos a usar en react lo que hacemos es escribirlo así ShoppingCartIcon en donde lo 
                     debemos importar en la cabecera y luego agregarlo como un componente al codigo */}
                     <ShoppingCartIcon className="h-6 w-6 text-black" />
-                    <div>{context.count}</div>
+                    <div>{context.cartProducts.length}</div>
                 </li>
             </ul>
         </nav>

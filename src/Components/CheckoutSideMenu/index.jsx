@@ -37,6 +37,8 @@ const CheckoutSideMenu = () => {
 
         // adicionalmente cuando se haga el checkout se debe limpiar esa orden 
         context.setCartProducts([])
+        // para que se limpie ese checkout y no quede el input filtrado lo que hacemos es limpiarlo asi
+        context.setSearchByTitle(null)
     } 
 
     // // con este comando podemos ver desde la consola que datos nos estan llegando 

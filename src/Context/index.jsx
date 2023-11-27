@@ -52,7 +52,7 @@ export const ShoppingCartProvider = ({children}) => {
     // este const de estado ahora hace el filtrado por categoria
     const [searchByCategory, setSearchByCategory] = useState(null);
     
-    console.log("searchByCategory: ", searchByCategory)
+    // console.log("searchByCategory: ", searchByCategory)
 
     useEffect(() => {
         // para ir a la API y consurmirla usamos el comando fetch y esa informacion viene en tipo promesa, entonces lo que hacemos para resolver la promesa es usar .then y
@@ -83,7 +83,7 @@ export const ShoppingCartProvider = ({children}) => {
 
     const filteredItemsByCategory = (items, searchByCategory) => {
       // este console lo usamos para ver quee stamos recibiendo que nos esta generando el error del no filtrado
-      console.log("items: ", items)
+      // console.log("items: ", items)
       return items?.filter(item => item.category.name.toLowerCase().includes(searchByCategory.toLowerCase()))         
     }
 
@@ -112,7 +112,9 @@ export const ShoppingCartProvider = ({children}) => {
       if (!searchByTitle && !searchByCategory) setFilteredItems(filterBy(null, items, searchByTitle, searchByCategory))
     }, [items, searchByTitle, searchByCategory])
 
-    console.log("filteredItems: ", filteredItems)
+    // console.log("searchByTitle: ", searchByTitle)
+    // console.log("searchByCategory: ", searchByCategory)
+    // console.log("filteredItems: ", filteredItems)
 
     // este console.log lo utilizamos para ver que esta filtrando la funcion pero desde la consola
     // console.log("FilteredItems: ", filteredItems)

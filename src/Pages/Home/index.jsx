@@ -12,26 +12,20 @@ function Home() {
   
   // /* aca lo que vamos a decir es que se renderice x o y parte si existe una busqueda o no */
   // creamos esta funcion para renderizar una vista pero eso va a depender del valor que tengamos en el contexto y es la captura del valor del input
+
+  // no nos esta funcionando el filtrado por categoria ya que lo tenemos amarrado a que solamente haga ese cambio cuando se busca por titulo, por ello
+  // hacemos lo siguiente
   const renderView = () => {
-    if (context.searchByTitle?.length > 0) {
-      if (context.filteredItems?.length > 0) {
-        return (
-          context.filteredItems?.map(item => (
-            <Card key={item.id} data={item} />
-          ))
-        )
-      } else {
-        return (
-          <div>We don't have anything :'( </div>
-        )
-      }
+    if (context.filteredItems?.length > 0) {
+      return (
+        context.filteredItems?.map(item => (
+          <Card key={item.id} data={item} />
+        ))
+      )
     } else {
-        return (
-          // aca es donde lo empieza a llamar desde el context y no de forma local
-          context.items?.map(item => (
-            <Card key={item.id} data={item} />
-          ))
-        )
+      return (
+        <div>We don't have anything :'( </div>
+      )
     }
   }
 
