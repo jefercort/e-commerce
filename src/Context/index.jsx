@@ -40,11 +40,14 @@ export const ShoppingCartProvider = ({children}) => {
     // o puede ser un array vacio o un boolean o lo que sea (ESTO ES UN ESTADO LOCAL en principio luego de pasarlo acá a context porque antes estaba en home.jsx se volvio un estado global)    
     // este estado va a tomar los productos
     const [items, setItems] = useState(null);
+    
+    // esto va a corresponder a los items que filtremos dependiendo de lo que escribamos en ese input
+    const [filteredItems, setFilteredItems] = useState(null);
 
     // aca lo que vamos a hacer es que por cada tipeada que se haga el guarde eso en el estado, que se usara para la busqueda por titulo
     const [searchByTitle, setSearchByTitle] = useState(null);
     // para ver si esta recibiendo correctamente cada type que hagamos entonces usamos el siguiente console.log
-    console.log("Escrito: ", searchByTitle)
+    // console.log("Escrito: ", searchByTitle)
 
 
     useEffect(() => {
@@ -62,34 +65,52 @@ export const ShoppingCartProvider = ({children}) => {
           .then(data => setItems(data))
         // dejamos un array vacio en el segundo item para que sea un valor por defecto pero como no le queremos enviar nada entonces lo dejamos vacio
         // esto es por si necesitamos enviarle informacion al useEffect por dentro
-      }, [])
+    }, [])
 
+      // en esta parte escribimos una funcion donde le mandamos los items y hacemos un filtgrado dependiendo del searchByTitle
+    const filteredItemsByTitle = (items, searchByTitle) => {
+      // necesito que tomes los items que ya tenemos pasandole el parametro items y saber que escribimos para poder hacer ese filtro para eso le pasamos el
+      // segundo parametro que es searchByTitle (en el retorno le decimos si existe items (?) vamos a hacer un filtro) aca le decimos tenemos varios items 
+      // pero quiero que evalues cada item y me preguntes si el titulo de ese item es igual a lo que yo ya puse en el input y si si retornamelo
+      // usamos el toLowerCase porque aveces tenemos letras mayusculas o minusculas y aca le decimos que no nos interesa el si tiene mayus o minusc porque
+      // queremos saber si esos mismos strings son iguales para que los retorne, luego de esa verificacion le decimos que esto tiene que incluirlo 
+      return items?.filter(item => item.title.toLowerCase().includes(searchByTitle.toLowerCase()))         
+    }
+
+    // ahora para que lo guarde en la actualizacion del estado hacemos lo siguiente
+    useEffect(() => {
+      if (searchByTitle) setFilteredItems(filteredItemsByTitle(items, searchByTitle))
+    }, [items, searchByTitle])
+
+    // este console.log lo utilizamos para ver que esta filtrando la funcion pero desde la consola
+    // console.log("FilteredItems: ", filteredItems)
 
     return (
         // aca se hace el encapsulamiento o wrapper que va a encapsular todos los componentes de app para proveeerlos de información
         // con el value le estoy diciendo yo voy a tener un hijo y este hijo necesita que pueda leer los datos que le pongamos ex: count setCount pero cualquier componente 
         // puede modificar sus valores
         <ShoppingCartContext.Provider value={{
-            count,
-            setCount,
-            openProductDetail,
-            closeProductDetail,
-            isProductDetailOpen,
-            productToShow,
-            setProductToShow,
-            cartProducts,
-            setCartProducts,
-            isCheckoutSideMenuOpen,
-            openCheckoutSideMenu,
-            closeCheckoutSideMenu,
-            order,
-            setOrder,
-            items,
-            setItems,
-            searchByTitle,
-            setSearchByTitle
+          count,
+          setCount,
+          openProductDetail,
+          closeProductDetail,
+          isProductDetailOpen,
+          productToShow,
+          setProductToShow,
+          cartProducts,
+          setCartProducts,
+          isCheckoutSideMenuOpen,
+          openCheckoutSideMenu,
+          closeCheckoutSideMenu,
+          order,
+          setOrder,
+          items,
+          setItems,
+          searchByTitle,
+          setSearchByTitle,
+          filteredItems,
         }}>
-            {children}
+          {children}
         </ShoppingCartContext.Provider>
     );
 }

@@ -2,7 +2,7 @@
 const Layout = ({ children }) => {
     return (
         <div className='flex flex-col items-center mt-20'>
-{/* aca le vamos a pasar un hijo que va a llegar ahí para ejecutarse */}
+        {/* aca le vamos a pasar un hijo que va a llegar ahí para ejecutarse */}
             {children}
         </div>
     );
