@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 // creamos el contexto global
 export const ShoppingCartContext = createContext();
@@ -35,6 +35,36 @@ export const ShoppingCartProvider = ({children}) => {
     // esta funcion se va a encargar de tomar los estados de cada orden de pedido
     const [order, setOrder] = useState([]);
 
+    // aca vamos a almacenar lo que viene desde la API .. items es nuestra cajita y setItems es el que va a inyectar el valor de los items
+    // cuando usamos useState() dentro de el podemos poner un valor por defecto que podrian ser unas llaves indicando que en futuro puede ser un objeto
+    // o puede ser un array vacio o un boolean o lo que sea (ESTO ES UN ESTADO LOCAL en principio luego de pasarlo acá a context porque antes estaba en home.jsx se volvio un estado global)    
+    // este estado va a tomar los productos
+    const [items, setItems] = useState(null);
+
+    // aca lo que vamos a hacer es que por cada tipeada que se haga el guarde eso en el estado, que se usara para la busqueda por titulo
+    const [searchByTitle, setSearchByTitle] = useState(null);
+    // para ver si esta recibiendo correctamente cada type que hagamos entonces usamos el siguiente console.log
+    console.log("Escrito: ", searchByTitle)
+
+
+    useEffect(() => {
+        // para ir a la API y consurmirla usamos el comando fetch y esa informacion viene en tipo promesa, entonces lo que hacemos para resolver la promesa es usar .then y
+        // lo que hacemos es tomar la respuesta "response" y a esa respuesta le decimos que lo haga en JSON
+        fetch("https://api.escuelajs.co/api/v1/products")
+  
+        // para ver como aparece la informacion que esta llegandonos usamos el console.log
+          // .then(response => console.log(response.json()))
+  
+        // con esta forma podemos ver como se tranforma los datos en arrays como la necesitamos
+          // .then(data => console.log(data))
+          .then(response => response.json())
+          // aca le decimos en donde vamos a almacenar esa DATA y se guarda en el estado y la almacenamos en setItems y le enviamos (data) para visualizarla posteriormente
+          .then(data => setItems(data))
+        // dejamos un array vacio en el segundo item para que sea un valor por defecto pero como no le queremos enviar nada entonces lo dejamos vacio
+        // esto es por si necesitamos enviarle informacion al useEffect por dentro
+      }, [])
+
+
     return (
         // aca se hace el encapsulamiento o wrapper que va a encapsular todos los componentes de app para proveeerlos de información
         // con el value le estoy diciendo yo voy a tener un hijo y este hijo necesita que pueda leer los datos que le pongamos ex: count setCount pero cualquier componente 
@@ -53,7 +83,11 @@ export const ShoppingCartProvider = ({children}) => {
             openCheckoutSideMenu,
             closeCheckoutSideMenu,
             order,
-            setOrder
+            setOrder,
+            items,
+            setItems,
+            searchByTitle,
+            setSearchByTitle
         }}>
             {children}
         </ShoppingCartContext.Provider>
