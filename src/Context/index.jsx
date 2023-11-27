@@ -48,7 +48,11 @@ export const ShoppingCartProvider = ({children}) => {
     const [searchByTitle, setSearchByTitle] = useState(null);
     // para ver si esta recibiendo correctamente cada type que hagamos entonces usamos el siguiente console.log
     // console.log("Escrito: ", searchByTitle)
-
+    
+    // este const de estado ahora hace el filtrado por categoria
+    const [searchByCategory, setSearchByCategory] = useState(null);
+    
+    console.log("searchByCategory: ", searchByCategory)
 
     useEffect(() => {
         // para ir a la API y consurmirla usamos el comando fetch y esa informacion viene en tipo promesa, entonces lo que hacemos para resolver la promesa es usar .then y
@@ -77,10 +81,38 @@ export const ShoppingCartProvider = ({children}) => {
       return items?.filter(item => item.title.toLowerCase().includes(searchByTitle.toLowerCase()))         
     }
 
+    const filteredItemsByCategory = (items, searchByCategory) => {
+      // este console lo usamos para ver quee stamos recibiendo que nos esta generando el error del no filtrado
+      console.log("items: ", items)
+      return items?.filter(item => item.category.name.toLowerCase().includes(searchByCategory.toLowerCase()))         
+    }
+
+    // lo que vamos a hacer ahora es poner filtro dependiendo de si es titulo o categoria (lo hacemos de forma que se envie un string y segun eso que haga lo que necesitamos)
+    const filterBy = (searchType, items, searchByTitle, searchByCategory) => {
+      if (searchType === "BY_TITLE") {
+        return filteredItemsByTitle(items, searchByTitle)
+      }
+      if (searchType === "BY_CATEGORY") {
+        return filteredItemsByCategory(items, searchByCategory)
+      }
+      if (searchType === "BY_TITLE_AND_CATEGORY") {
+        return filteredItemsByCategory(items, searchByCategory).filter(item => item.title.toLowerCase().includes(searchByTitle.toLowerCase()))
+      }
+      if (!searchType) {
+        return items
+      }
+    }
+    
+
     // ahora para que lo guarde en la actualizacion del estado hacemos lo siguiente
     useEffect(() => {
-      if (searchByTitle) setFilteredItems(filteredItemsByTitle(items, searchByTitle))
-    }, [items, searchByTitle])
+      if (searchByTitle && searchByCategory) setFilteredItems(filterBy("BY_TITLE_AND_CATEGORY", items, searchByTitle, searchByCategory))
+      if (searchByTitle && !searchByCategory) setFilteredItems(filterBy("BY_TITLE", items, searchByTitle, searchByCategory))
+      if (!searchByTitle && searchByCategory) setFilteredItems(filterBy("BY_CATEGORY", items, searchByTitle, searchByCategory))
+      if (!searchByTitle && !searchByCategory) setFilteredItems(filterBy(null, items, searchByTitle, searchByCategory))
+    }, [items, searchByTitle, searchByCategory])
+
+    console.log("filteredItems: ", filteredItems)
 
     // este console.log lo utilizamos para ver que esta filtrando la funcion pero desde la consola
     // console.log("FilteredItems: ", filteredItems)
@@ -109,6 +141,8 @@ export const ShoppingCartProvider = ({children}) => {
           searchByTitle,
           setSearchByTitle,
           filteredItems,
+          searchByCategory,
+          setSearchByCategory
         }}>
           {children}
         </ShoppingCartContext.Provider>
