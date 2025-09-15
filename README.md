@@ -4,7 +4,7 @@ A modern, fully responsive e-commerce web application built with React.js, Vite,
 
 ## 🚀 Live Demo
 
-[View Live Demo](#) <!-- Add your deployed URL here when available -->
+[View Live Demo](#)
 
 ## ✨ Features
 
